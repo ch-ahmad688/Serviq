@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:serviq/Login/Login.dart';
 
+import '../Bottom Bar/Bottom Bar.dart';
+
 class Signup extends StatelessWidget {
   const Signup({super.key});
 
@@ -240,6 +242,7 @@ class Signup extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(25),
               child: GestureDetector(
+                onTap: ()=>Get.to(Bottom_bar()),
                 child: Container(
                   height: 50,
                   width: double.infinity,

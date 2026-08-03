@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:serviq/Forgot/Forgot.dart';
 import 'package:serviq/Sign%20up/Sign%20up.dart';
 
+import '../Bottom Bar/Bottom Bar.dart';
+
 class Login extends StatelessWidget {
   const Login({super.key});
 
@@ -156,9 +158,7 @@ class Login extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(25),
               child: GestureDetector(
-                onTap: () {
-                  print('Sign In button tapped');
-                },
+                onTap: ()=>Get.to(Bottom_bar()),
                 child: Container(
                   height: 50,
                   width: double.infinity,

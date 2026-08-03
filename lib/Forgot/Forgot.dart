@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../Bottom Bar/Bottom Bar.dart';
+
 class Forgot extends StatelessWidget {
   const Forgot({super.key});
 
@@ -216,9 +218,7 @@ class Reset extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(25),
               child: GestureDetector(
-                onTap: () {
-                  print('Verify button tapped');
-                },
+                onTap: ()=>Get.to(Bottom_bar()),
                 child: Container(
                   height: 50,
                   width: double.infinity,
