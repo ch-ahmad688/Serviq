@@ -10,10 +10,12 @@ class Splash_screen extends StatelessWidget {
       Get.put(Splash_controller());
 
       return Scaffold(
-      backgroundColor: Color(0xff006DDD),
+      backgroundColor: Colors.white,
       body: Center(child: Image(
           image: AssetImage
-            ("assets/Icon/WhatsApp Image 2026-07-31 at 3.09.03 PM (1).jpeg"))),
+            ("assets/Icon/WhatsApp Image 2026-07-31 at 3.09.03 PM (1).jpeg"),
+        height:100 ,
+      width: 100,)),
     );
   }
 }
