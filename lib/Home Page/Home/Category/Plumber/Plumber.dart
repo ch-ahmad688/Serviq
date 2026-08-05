@@ -1,37 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'Controller.dart';
+import 'Cart.dart';
+
 
 class Plumber extends StatelessWidget {
   const Plumber({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final PlumberController controller = Get.put(PlumberController());
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Plumber'),
-        backgroundColor: const Color(0xffCEEDFF),
-      ),
-      body: const Center(
-        child: Padding(
-          padding: EdgeInsets.all(20.0),
+      body:SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.plumbing, size: 100, color: Color(0xff1A7DE1)),
-              SizedBox(height: 20),
-              Text(
-                'Plumber Services',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 10),
-              Text(
-                'Started from \$30',
-                style: TextStyle(fontSize: 20, color: Color(0xff006DDF)),
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Professional plumber services for all your plumbing needs.',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
+              const SizedBox(height: 10),
+              _buildHeader(),
+              const SizedBox(height: 8),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 4,
+                ),
+                itemCount: controller.model.length,
+                itemBuilder: (context, index) {
+                  return Cart(
+                    model: controller.model[index],
+                  );
+                },
               ),
             ],
           ),
@@ -39,4 +43,59 @@ class Plumber extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _buildHeader() {
+  return Row(
+    children: [
+      GestureDetector(
+        onTap: () => Get.back(),
+        child: Container(
+          height: 50,
+          width: 50,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            border: Border.all(
+              width: 1,
+              color: const Color(0xffDFE4E9),
+            ),
+          ),
+          child: const Center(
+            child: Icon(
+              Icons.arrow_back_ios_new_sharp,
+              size: 20,
+            ),
+          ),
+        ),
+      ),
+      const SizedBox(width: 16),
+      const Expanded(
+        child: Text(
+          'Plumber',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+      ),
+      Container(
+        height: 50,
+        width: 50,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(
+            width: 1,
+            color: const Color(0xffDFE4E9),
+          ),
+        ),
+        child: const Center(
+          child: Icon(
+            Icons.menu,
+            size: 20,
+          ),
+        ),
+      ),
+    ],
+  );
 }

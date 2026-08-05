@@ -52,7 +52,7 @@ class Cart extends StatelessWidget {
                         text: '${model.name}\n',
                       ),
                       TextSpan(
-                        text: 'Electrician',
+                        text: 'Mechanic',
                         style: const TextStyle(
                           color: Color(0xff6B7686),
                           fontSize: 16,

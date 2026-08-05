@@ -40,6 +40,7 @@ class Cart extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 RichText(
+
                   textAlign: TextAlign.left,
                   text: TextSpan(
                     style: const TextStyle(
@@ -52,7 +53,7 @@ class Cart extends StatelessWidget {
                         text: '${model.name}\n',
                       ),
                       TextSpan(
-                        text: 'Electrician',
+                        text: 'Painter',
                         style: const TextStyle(
                           color: Color(0xff6B7686),
                           fontSize: 16,
