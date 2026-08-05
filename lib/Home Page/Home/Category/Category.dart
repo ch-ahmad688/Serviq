@@ -1,25 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'AC Repair/AC Repair.dart';
+import 'Appliance/Appliance.dart';
+import 'Carpenter/Carpenter.dart';
+import 'Cart.dart';
+import 'Cleaning/Cleaning.dart';
+import 'Controller.dart';
+import 'Electrican/Electrican.dart';
+import 'Mechanic/Mechanic.dart';
+import 'Painter/Painter.dart';
+import 'Plumber/Plumber.dart';
 
 class Category extends StatelessWidget {
   const Category({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final CategoryController controller = Get.put(CategoryController());
     return Scaffold(
-     body: SafeArea(
+      body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
-
               _buildHeader(),
-
-
               const SizedBox(height: 8),
-
-
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 1,
+                ),
+                itemCount: controller.model.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      switch(index) {
+                        case 0:
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const Electrician()));
+                          break;
+                        case 1:
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const Plumber()));
+                          break;
+                        case 2:
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ACRepair()));
+                          break;
+                        case 3:
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const Mechanic()));
+                          break;
+                        case 4:
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const Cleaning()));
+                          break;
+                        case 5:
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const Painter()));
+                          break;
+                        case 6:
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const Carpenter()));
+                          break;
+                        case 7:
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const Appliance()));
+                          break;
+                      }
+                    },
+                    child: Cart(
+                      model: controller.model[index],
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -27,6 +81,7 @@ class Category extends StatelessWidget {
     );
   }
 }
+
 Widget _buildHeader() {
   return Row(
     children: [

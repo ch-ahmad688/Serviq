@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:serviq/Home%20Page/Home/Emergency/Emergency.dart';
 import 'Cart.dart';
 import 'Category/Category.dart';
 import 'Controller.dart';
@@ -13,6 +14,16 @@ class Home extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(Emergency());
+        },
+        child: Image.asset(
+          'assets/Icon/info.png',
+         fit: BoxFit.cover,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -38,21 +49,21 @@ class Home extends StatelessWidget {
               const SizedBox(height: 8),
 
               GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    crossAxisSpacing: 6,
-                    mainAxisSpacing: 6,
-                    childAspectRatio: 0.9,
-                  ),
-                  itemCount: controller.model.length,
-                  itemBuilder: (context, index) {
-                    return Cart(
-                      model: controller.model[index],
-                    );
-                  },
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  crossAxisSpacing: 6,
+                  mainAxisSpacing: 6,
+                  childAspectRatio: 0.9,
                 ),
+                itemCount: controller.model.length,
+                itemBuilder: (context, index) {
+                  return Cart(
+                    model: controller.model[index],
+                  );
+                },
+              ),
 
               const SizedBox(height: 16),
 
