@@ -5,6 +5,7 @@ import '../Model/Service Card.dart';
 import '../Model/category.dart';
 import '../Model/controllers.dart';
 import 'AI Recommendation Service.dart';
+import 'Emergency/Emergency.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -16,6 +17,16 @@ class Home extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.transparent,
+        onPressed: () {
+          Get.to(Emergency());
+        },
+        child: Image.asset(
+          'assets/Icon/info.png',
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndDocked,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -174,7 +185,6 @@ class Home extends StatelessWidget {
   Widget _buildAIEstimator() {
     return GestureDetector(
       onTap: () {
-        // Navigate to AI price estimator screen
         Get.snackbar(
           'AI Price Estimator',
           'Coming soon!',
