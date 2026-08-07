@@ -25,7 +25,7 @@ Widget _buildPersonal() {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
     decoration: BoxDecoration(
-      color: const Color(0xff6155E2),
+      color: const Color(0xff1B2E78),
       borderRadius: BorderRadius.circular(20),
     ),
     child: Row(
@@ -51,7 +51,7 @@ Widget _buildPersonal() {
               child: Container(
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
-                  color: Color(0xff9D8CF3),
+                  color: Color(0xff0B6EBB),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
@@ -83,7 +83,7 @@ Widget _buildPersonal() {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(
-                  color: Color(0xff5146D1),
+                  color: Color(0xff0B6EBB),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Row(

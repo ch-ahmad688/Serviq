@@ -14,13 +14,13 @@ class Cart extends StatelessWidget {
         borderRadius: BorderRadius.circular(22.5),
         color: const Color(0xffCEEDFF),
         border: Border.all(
-          color: Color(0xffDADEE5),
-          width: 2
-        )
+          color: const Color(0xffDADEE5),
+          width: 2,
+        ),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center, 
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             padding: const EdgeInsets.all(12.0),
@@ -35,9 +35,7 @@ class Cart extends StatelessWidget {
               color: const Color(0xff1A7DE1),
             ),
           ),
-          const SizedBox(height: 8), // Spacing between image and text
-
-          // Text section with better alignment
+          const SizedBox(height: 8),
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
@@ -51,7 +49,7 @@ class Cart extends StatelessWidget {
                   text: '${model.name}\n',
                 ),
                 TextSpan(
-                  text: model.price,
+                  text: model.price ?? '',
                   style: const TextStyle(
                     color: Color(0xff006DDF),
                     fontSize: 15,

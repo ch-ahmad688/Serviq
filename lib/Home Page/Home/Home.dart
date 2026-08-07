@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:serviq/Home%20Page/Home/Emergency/Emergency.dart';
-import 'Cart.dart';
-import 'Category/Category.dart';
-import 'Controller.dart';
+import '../Model/Model.dart';
+import '../Model/Service Card.dart';
+import '../Model/category.dart';
+import '../Model/controllers.dart';
+import 'AI Recommendation Service.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -11,19 +12,10 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController controller = Get.put(HomeController());
+    final List<Model> aiRecommended = AIRecommendationService.getRecommendedProfessionals(count: 5);
 
     return Scaffold(
       backgroundColor: Colors.white,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.to(Emergency());
-        },
-        child: Image.asset(
-          'assets/Icon/info.png',
-         fit: BoxFit.cover,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -31,23 +23,14 @@ class Home extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
-
               _buildHeader(),
-
               const SizedBox(height: 16),
-
               _buildSearchBar(),
-
               const SizedBox(height: 16),
-
               _buildAIEstimator(),
-
               const SizedBox(height: 20),
-
               _buildCategoriesHeader(),
-
               const SizedBox(height: 8),
-
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -57,20 +40,46 @@ class Home extends StatelessWidget {
                   mainAxisSpacing: 6,
                   childAspectRatio: 0.9,
                 ),
-                itemCount: controller.model.length,
+                itemCount: controller.categories.length,
                 itemBuilder: (context, index) {
-                  return Cart(
-                    model: controller.model[index],
+                  return ServiceCard(
+                    model: controller.categories[index],
+                    isHomePage: true,
                   );
                 },
               ),
-
               const SizedBox(height: 16),
-
-              _buildAIRecommended(),
-
+              _buildAIRecommendedHeader(),
+              const SizedBox(height: 12),
+              aiRecommended.isEmpty
+                  ? const Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 40),
+                  child: Text(
+                    'No recommendations available',
+                    style: TextStyle(color: Colors.grey, fontSize: 14),
+                  ),
+                ),
+              )
+                  : SizedBox(
+                height: 100,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: aiRecommended.length,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width:MediaQuery.of(context).size.width*0.8,
+                      margin: const EdgeInsets.only(right: 12),
+                      child: ServiceCard(
+                        model: aiRecommended[index],
+                        isHomePage: false,
+                      ),
+                    );
+                  },
+                ),
+              ),
               const SizedBox(height: 20),
-
             ],
           ),
         ),
@@ -86,40 +95,26 @@ class Home extends StatelessWidget {
           width: 50,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
-            border: Border.all(
-              width: 1,
-              color: const Color(0xffDFE4E9),
-            ),
+            border: Border.all(width: 1, color: const Color(0xffDFE4E9)),
           ),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Image.asset(
-                'assets/Icon/icons8-location-64.png',
-                errorBuilder: (context, error, stackTrace) {
-                  return const Icon(Icons.location_on);
-                },
-              ),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Image.asset(
+              'assets/Icon/icons8-location-64.png',
+              errorBuilder: (_, __, ___) => const Icon(Icons.location_on),
             ),
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
           child: RichText(
-            text: TextSpan(
-              style: const TextStyle(
-                fontSize: 12,
-                color: Color(0xff616D7D),
-              ),
-              children: const [
+            text: const TextSpan(
+              style: TextStyle(fontSize: 12, color: Color(0xff616D7D)),
+              children: [
                 TextSpan(text: 'Current location \n'),
                 TextSpan(
                   text: 'Baker Street , London',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -130,20 +125,13 @@ class Home extends StatelessWidget {
           width: 50,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
-            border: Border.all(
-              width: 1,
-              color: const Color(0xffDFE4E9),
-            ),
+            border: Border.all(width: 1, color: const Color(0xffDFE4E9)),
           ),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Image.asset(
-                'assets/Icon/icons8-notification.gif',
-                errorBuilder: (context, error, stackTrace) {
-                  return const Icon(Icons.notifications);
-                },
-              ),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Image.asset(
+              'assets/Icon/icons8-notification.gif',
+              errorBuilder: (_, __, ___) => const Icon(Icons.notifications),
             ),
           ),
         ),
@@ -156,13 +144,9 @@ class Home extends StatelessWidget {
       height: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
-        border: Border.all(
-          width: 1,
-          color: const Color(0xffDFE4E9),
-        ),
+        border: Border.all(width: 1, color: const Color(0xffDFE4E9)),
       ),
       child: TextFormField(
-        textAlign: TextAlign.justify,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(12),
           border: InputBorder.none,
@@ -170,23 +154,16 @@ class Home extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
               'assets/Icon/icons8-search.gif',
-              errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.search);
-              },
+              errorBuilder: (_, __, ___) => const Icon(Icons.search),
             ),
           ),
           hintText: 'Describe your problem to AI...',
-          hintStyle: const TextStyle(
-            fontSize: 16,
-            color: Color(0xff616D7D),
-          ),
+          hintStyle: const TextStyle(fontSize: 16, color: Color(0xff616D7D)),
           suffixIcon: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
               'assets/Icon/icons8-mike.gif',
-              errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.mic);
-              },
+              errorBuilder: (_, __, ___) => const Icon(Icons.mic),
             ),
           ),
         ),
@@ -195,70 +172,63 @@ class Home extends StatelessWidget {
   }
 
   Widget _buildAIEstimator() {
-    return Container(
-      height: 85,
-      decoration: BoxDecoration(
-        color: const Color(0xff006DDD),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Row(
-          children: [
-            Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: const Color(0xff2582E2),
-              ),
-              child: Center(
+    return GestureDetector(
+      onTap: () {
+        // Navigate to AI price estimator screen
+        Get.snackbar(
+          'AI Price Estimator',
+          'Coming soon!',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: const Color(0xff006DDD),
+          colorText: Colors.white,
+        );
+      },
+      child: Container(
+        height: 85,
+        decoration: BoxDecoration(
+          color: const Color(0xff006DDD),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: const Color(0xff2582E2),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Image.asset(
                     'assets/Icon/innovation.png',
                     color: Colors.white,
-                    errorBuilder: (context, error, stackTrace) {
-                      return const Icon(
-                        Icons.lightbulb,
-                        color: Colors.white,
-                      );
-                    },
+                    errorBuilder: (_, __, ___) => const Icon(Icons.lightbulb, color: Colors.white),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(width: 12),
-            const Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'AI Price Estimator',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+              const SizedBox(width: 12),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'AI Price Estimator',
+                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
                     ),
-                  ),
-                  Text(
-                    'Get instant quotes before you book',
-                    style: TextStyle(
-                      color: Colors.white60,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
+                    Text(
+                      'Get instant quotes before you book',
+                      style: TextStyle(color: Colors.white60, fontSize: 12, fontWeight: FontWeight.w400),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            const Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
-              size: 20,
-            ),
-          ],
+              const Icon(Icons.arrow_forward_ios, color: Colors.white, size: 20),
+            ],
+          ),
         ),
       ),
     );
@@ -270,28 +240,22 @@ class Home extends StatelessWidget {
       children: [
         const Text(
           'Categories',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black),
         ),
         TextButton(
-          onPressed: ()=>Get.to(Category()),
+          onPressed: () {
+            Get.to(() => const CategoryScreen());
+          },
           child: const Text(
             'See all',
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 12,
-              color: Color(0xff006DDD),
-            ),
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12, color: Color(0xff006DDD)),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildAIRecommended() {
+  Widget _buildAIRecommendedHeader() {
     return const Row(
       children: [
         Image(
