@@ -41,7 +41,6 @@ class ServiceCard extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Image.asset(
                   model.image,
-                  errorBuilder: (_, __, ___) => const Icon(Icons.error),
                 ),
               ),
             ),

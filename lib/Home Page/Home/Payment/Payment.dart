@@ -22,7 +22,7 @@ class Payment extends StatelessWidget {
             Expanded(
               child: _buildBody(context, controller, model),
             ),
-            _buildBottom(controller),
+            _buildBottom(controller,model),
           ],
         ),
       ),
@@ -366,7 +366,7 @@ Widget _buildDetail(String category, String amount, {bool isTotal = false}) {
   );
 }
 
-Widget _buildBottom(PaymentController controller) {
+Widget _buildBottom(PaymentController controller, Model model) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
     decoration: BoxDecoration(
@@ -389,7 +389,7 @@ Widget _buildBottom(PaymentController controller) {
     child: Obx(
           () => ElevatedButton(
         onPressed: () {
-          Get.to(Status());
+          Get.to(Status(selectedModel:model));
           if (controller.isCard.value) {
             Get.snackbar(
               'Processing',
