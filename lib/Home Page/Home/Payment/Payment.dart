@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:serviq/Home%20Page/Home/Booking%20Status/Booking%20Status.dart';
 import '../../Model/Model.dart';
 import 'Controller.dart';
 
@@ -388,6 +389,7 @@ Widget _buildBottom(PaymentController controller) {
     child: Obx(
           () => ElevatedButton(
         onPressed: () {
+          Get.to(Status());
           if (controller.isCard.value) {
             Get.snackbar(
               'Processing',
