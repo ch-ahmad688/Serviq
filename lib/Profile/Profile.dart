@@ -1733,10 +1733,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
           child: TextField(
             controller: bioController,
-            maxLines: 4,
+            maxLines: 3,
             decoration: InputDecoration(
               hintText: 'Tell us about yourself...',
-              prefixIcon: const Icon(Icons.description_rounded, color: Color(0xff1B2E78), size: 20),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide.none,
@@ -1759,7 +1758,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ],
     );
   }
-
   void _showCancelDialog(BuildContext context) {
     showDialog(
       context: context,
