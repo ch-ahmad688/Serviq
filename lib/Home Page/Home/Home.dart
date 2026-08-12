@@ -6,6 +6,8 @@ import '../Model/category.dart';
 import '../Model/controllers.dart';
 import 'AI Recommendation Service.dart';
 import 'Emergency/Emergency.dart';
+import 'Notification/Notification.dart';
+
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -131,18 +133,20 @@ class Home extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          height: 50,
-          width: 50,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            border: Border.all(width: 1, color: const Color(0xffDFE4E9)),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Image.asset(
-              'assets/Icon/icons8-notification.gif',
-              errorBuilder: (_, __, ___) => const Icon(Icons.notifications),
+        GestureDetector(
+          onTap:()=>Get.to(Notifiy()),
+          child: Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              border: Border.all(width: 1, color: const Color(0xffDFE4E9)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Image.asset(
+                'assets/Icon/icons8-notification.gif',
+              ),
             ),
           ),
         ),
@@ -215,7 +219,6 @@ class Home extends StatelessWidget {
                   child: Image.asset(
                     'assets/Icon/innovation.png',
                     color: Colors.white,
-                    errorBuilder: (_, __, ___) => const Icon(Icons.lightbulb, color: Colors.white),
                   ),
                 ),
               ),

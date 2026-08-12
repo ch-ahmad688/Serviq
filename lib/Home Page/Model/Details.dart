@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:serviq/Home%20Page/Home/Confirm%20Booking/Confirm%20Booking.dart';
 import '../Home/Call/Call.dart';
 import '../Home/Chat/Chat.dart';
 import '../Model/Model.dart';
@@ -520,16 +521,7 @@ class DetailsScreen extends StatelessWidget {
           Expanded(
             flex: 2,
             child: ElevatedButton(
-              onPressed: () {
-                Get.snackbar(
-                  'Booking',
-                  'Booking request sent to ${model.name}',
-                  snackPosition: SnackPosition.BOTTOM,
-                  backgroundColor: Colors.green,
-                  colorText: Colors.white,
-                  duration: const Duration(seconds: 2),
-                );
-              },
+              onPressed: ()=>Get.to(Confirm(model:selectedClient)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff0B6EBB),
                 foregroundColor: Colors.white,
